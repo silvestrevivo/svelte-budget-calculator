@@ -1,10 +1,13 @@
 <script>
+  import { getContext } from "svelte";
+  // Props
   export let id;
   export let name = "";
   export let amount = 0;
-  export let removeExpense;
-
+  //Variables
   let displayAmount = false;
+
+  const removeExpense = getContext("removeExpense");
 </script>
 
 <article class="single-expense">
