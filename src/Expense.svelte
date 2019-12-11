@@ -1,7 +1,8 @@
 <script>
-  //   export let id;
+  export let id;
   export let name = "";
   export let amount = 0;
+  export let removeExpense;
 
   let displayAmount = false;
 </script>
@@ -24,7 +25,7 @@
     <button class="expense-btn edit-btn">
       <i class="fas fa-pen" />
     </button>
-    <button class="expense-btn delete-btn">
+    <button class="expense-btn delete-btn" on:click={() => removeExpense(id)}>
       <i class="fas fa-trash" />
     </button>
   </div>
