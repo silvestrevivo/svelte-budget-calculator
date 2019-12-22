@@ -9,8 +9,13 @@
   import expensesData from "./expenses";
   // variables
   let expenses = [...expensesData];
+  // set editing variables
+  let setName = "";
+  let setAmount = null;
+  let setId = null;
   // reactive
   $: total = expenses.reduce((acc, curr) => (acc += curr.amount), 0);
+  $: isEditing = setId ? true : false;
   // functions
   function addExpense({ name, amount }) {
     let expense = {
@@ -19,7 +24,7 @@
       amount
     };
     expenses = [expense, ...expenses];
-    console.log("expense", expense);
+    // console.log("addExpense", expense);
   }
 
   function removeExpense(id) {
@@ -30,13 +35,37 @@
     expenses = [];
   }
 
+  function setModifiedExpense(id) {
+    let expense = expenses.find(item => item.id === id);
+    setId = expense.id;
+    setName = expense.name;
+    setAmount = expense.amount;
+  }
+
+  function editExpense({ name, amount }) {
+    // console.log("editExpense", { name, amount });
+    expenses = expenses.map(item => {
+      return item.id === setId ? { ...item, name, amount } : item;
+    });
+    setId = null;
+    setAmount = null;
+    setName = "";
+    isEditing = false;
+  }
+
   // Context
   setContext("removeExpense", removeExpense);
+  setContext("modifyExpense", setModifiedExpense);
 </script>
 
 <Navbar />
 <main class="content">
-  <ExpenseForm {addExpense} />
+  <ExpenseForm
+    {addExpense}
+    {editExpense}
+    name={setName}
+    amount={setAmount}
+    {isEditing} />
   <Totals title="total expenses" {total} />
   <ExpensesList {expenses} />
   <button
