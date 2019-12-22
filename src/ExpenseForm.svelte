@@ -7,6 +7,7 @@
   export let amount = null;
   export let isEditing;
   export let editExpense;
+  export let hideForm;
   // Variables
   $: isEmpty = !name || !amount;
 
@@ -43,7 +44,7 @@
       class:disabled={isEmpty}>
       {isEditing ? 'edit expense' : 'add expense'}
     </button>
-    <button type="button" class="close-btn">
+    <button type="button" class="close-btn" on:click={hideForm}>
       <i class="fas fa-times" />
       close
     </button>
