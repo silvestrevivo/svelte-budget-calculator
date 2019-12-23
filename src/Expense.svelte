@@ -1,5 +1,6 @@
 <script>
   import { getContext } from "svelte";
+  import { blur, scale, fly } from "svelte/transition";
   // Props
   export let id;
   export let name = "";
@@ -22,7 +23,7 @@
       </button>
     </h2>
     {#if displayAmount}
-      <h4>amount: ${amount}</h4>
+      <h4 in:blur out:scale>amount: ${amount}</h4>
     {/if}
   </div>
   <div class="expense-buttons">
