@@ -5,6 +5,7 @@
   import ExpensesList from "./ExpensesList.svelte";
   import Totals from "./Totals.svelte";
   import ExpenseForm from "./ExpenseForm.svelte";
+  import Modal from "./Modal.svelte";
   // variables
   let expenses = [];
   // set editing variables
@@ -86,13 +87,15 @@
 <Navbar {showForm} />
 <main class="content">
   {#if isFormOpen}
-    <ExpenseForm
-      {addExpense}
-      {editExpense}
-      {hideForm}
-      name={setName}
-      amount={setAmount}
-      {isEditing} />
+    <Modal>
+      <ExpenseForm
+        {addExpense}
+        {editExpense}
+        {hideForm}
+        name={setName}
+        amount={setAmount}
+        {isEditing} />
+    </Modal>
   {/if}
   <Totals title="total expenses" {total} />
   <ExpensesList {expenses} />
